@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <h2 class="page-title">📄 Apply to {{ job.title }}</h2>
+
+    <form method="post" class="form-card">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input name="name" required placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input name="email" type="email" required placeholder="name@example.com">
+        </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            <input name="phone" placeholder="Optional phone number">
+        </div>
+
+        <div class="form-group">
+            <label>Experience (years)</label>
+            <input name="experience_years" type="number" step="0.1" placeholder="e.g., 2.5">
+        </div>
+
+        <div class="form-group">
+            <label>Attach Resume (choose from previously uploaded)</label>
+            <select name="resume_id">
+                <option value="">-- Select Resume (optional) --</option>
+                {% for r in resumes %}
+                    <option value="{{ r.id }}">{{ r.original_filename }} — {{ r.uploaded_at.strftime("%Y-%m-%d") }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn primary">Submit Application</button>
+
+    </form>
+
+</div>
+
+
+<style>
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+}
+
+.page-title {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #024cab;
+}
+
+.form-card {
+    background: #fafbff;
+    border: 1px solid #d9e1f1;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #c2cbe0;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.btn.primary {
+    background: #024cab;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 12px;
+}
+
+.btn.primary:hover {
+    background: #013b8a;
+}
+</style>
+
+{% endblock %}

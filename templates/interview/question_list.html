@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+    <h2 class="title">Interview Questions</h2>
+
+    <p class="action-links">
+        <a href="{{ url_for('interview.create_question') }}" class="btn-primary">+ Create New Question</a>
+        <a href="{{ url_for('interview.start_interview') }}" class="btn-secondary">▶ Start Interview</a>
+    </p>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Prompt</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q in questions %}
+            <tr>
+                <td>{{ q.id }}</td>
+                <td>{{ q.title }}</td>
+
+                <td>
+                    {{ q.prompt[:120] }}
+                    {% if q.prompt|length > 120 %}...{% endif %}
+                </td>
+
+                <td class="actions">
+                    <!-- Action buttons can be enabled when edit/delete routes are ready -->
+                    <a href="{{ url_for('interview.view_question', question_id=q.id) }}" class="btn-small">View</a>
+                    <a href="{{ url_for('interview.edit_question', question_id=q.id) }}" class="btn-small warn">Edit</a>
+                    <a href="{{ url_for('interview.delete_question', question_id=q.id) }}" class="btn-small danger" onclick="return confirm('Delete this question?')">Delete</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.title {
+    margin-bottom: 15px;
+    color: #024cab;
+    font-size: 24px;
+}
+
+.action-links {
+    margin-bottom: 18px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 8px 14px;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 14px;
+}
+.btn-primary { background: #024cab; }
+.btn-primary:hover { background: #013a84; }
+
+.btn-secondary { background: #00877a; }
+.btn-secondary:hover { background: #006d62; }
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.styled-table th, .styled-table td {
+    border: 1px solid #d1d5db;
+    padding: 8px 10px;
+}
+
+.styled-table th {
+    background: #f2f6ff;
+}
+
+.actions .btn-small {
+    padding: 4px 8px;
+    font-size: 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 6px;
+    color: white !important;
+}
+
+.btn-small { background: #024cab; }
+.btn-small:hover { background: #013a84; }
+
+.btn-small.warn { background: #e0a400; }
+.btn-small.warn:hover { background: #c78f00; }
+
+.btn-small.danger { background: #c93434; }
+.btn-small.danger:hover { background: #9e2525; }
+
+</style>
+
+{% endblock %}

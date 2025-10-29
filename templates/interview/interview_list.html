@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+    <h2 class="title">Interviews</h2>
+
+    <p class="action-links">
+        <a class="btn-link" href="{{ url_for('interview.start_interview') }}">➕ Start New Interview</a> 
+        | 
+        <a class="btn-link" href="{{ url_for('interview.list_questions') }}">📋 Manage Questions</a>
+    </p>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Candidate</th>
+                <th>Started</th>
+                <th>Completed</th>
+                <th>Score</th>
+                <th>View</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for it in interviews %}
+            <tr>
+                <td>{{ it.id }}</td>
+                <td>{{ it.candidate_name }}</td>
+                <td>{{ it.started_at }}</td>
+                <td>{{ it.completed_at or "-" }}</td>
+                <td>{{ it.score or "-" }}</td>
+                <td>
+                    <a class="btn-small" href="{{ url_for('interview.view_interview', interview_id=it.id) }}">
+                        View
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+.title {
+    margin-bottom: 15px;
+    color: #024cab;
+}
+.action-links {
+    margin-bottom: 18px;
+    font-size: 15px;
+}
+.btn-link {
+    color: #024cab;
+    font-weight: 600;
+    text-decoration: none;
+}
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.styled-table th, .styled-table td {
+    border: 1px solid #d1d5db;
+    padding: 8px 10px;
+}
+.styled-table th {
+    background: #f2f6ff;
+    font-weight: bold;
+    text-align: left;
+}
+.btn-small {
+    padding: 4px 8px;
+    background: #024cab;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+}
+.btn-small:hover {
+    background: #013a84;
+}
+</style>
+
+{% endblock %}

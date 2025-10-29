@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <h2 class="page-title">📂 Job Openings</h2>
+
+    <div class="actions-bar">
+        <a href="{{ url_for('ats.create_job') }}" class="btn primary">+ Post New Job</a>
+    </div>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for j in jobs %}
+            <tr>
+                <td>{{ j.id }}</td>
+                <td>{{ j.title }}</td>
+                <td>{{ j.department or '-' }}</td>
+                <td>
+                    {% if j.is_open %}
+                        <span class="tag open">OPEN</span>
+                    {% else %}
+                        <span class="tag closed">CLOSED</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn link" href="{{ url_for('ats.job_detail', job_id=j.id) }}">View</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 20px;
+}
+
+.page-title {
+    font-size: 26px;
+    font-weight: 600;
+    color: #024cab;
+    margin-bottom: 10px;
+}
+
+.actions-bar {
+    margin-bottom: 12px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.primary {
+    background: #024cab;
+    color: #fff;
+}
+
+.btn.link {
+    color: #024cab;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 10px;
+}
+
+.styled-table th, .styled-table td {
+    border: 1px solid #d7dcee;
+    padding: 10px;
+    text-align: left;
+}
+
+.styled-table th {
+    background: #e8eefb;
+    font-weight: 600;
+}
+
+.tag {
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.tag.open {
+    background: #d9ffdf;
+    color: #005918;
+}
+
+.tag.closed {
+    background: #ffe1e1;
+    color: #7a0000;
+}
+</style>
+
+{% endblock %}

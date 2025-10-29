@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <h2 class="page-title">📌 Post a New Job</h2>
+
+    <form method="post" class="form-card">
+
+        <div class="form-group">
+            <label>Job Title</label>
+            <input name="title" required placeholder="e.g., Senior Python Developer">
+        </div>
+
+        <div class="form-group">
+            <label>Department</label>
+            <input name="department" placeholder="e.g., Engineering / HR / Sales">
+        </div>
+
+        <div class="form-group">
+            <label>Job Description</label>
+            <textarea name="description" rows="6" placeholder="Paste full job description here..."></textarea>
+        </div>
+
+        <button type="submit" class="btn primary">Post Job</button>
+
+    </form>
+
+</div>
+
+<style>
+.container {
+    max-width: 750px;
+    margin: auto;
+    padding: 20px;
+}
+
+.page-title {
+    margin-bottom: 18px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #024cab;
+}
+
+.form-card {
+    background: #fafbff;
+    border: 1px solid #d9e1f1;
+    padding: 22px;
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #c2cbe0;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.btn.primary {
+    background: #024cab;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn.primary:hover {
+    background: #013b8a;
+}
+</style>
+
+{% endblock %}

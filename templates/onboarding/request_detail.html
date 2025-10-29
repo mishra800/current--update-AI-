@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+    <h2 class="title">Onboarding Request #{{ request.id }} — {{ request.candidate_name }}</h2>
+
+    <p><b>Email:</b> {{ request.email }} &nbsp; | &nbsp; <b>Phone:</b> {{ request.phone or "-" }}</p>
+    <p><b>Position:</b> {{ request.position }} &nbsp; | &nbsp; <b>Start Date:</b> {{ request.start_date or "-" }}</p>
+
+    <hr>
+
+    <!-- TASKS SECTION -->
+    <h3 class="subtitle">📝 Onboarding Tasks</h3>
+
+    <table class="styled-table">
+        <tr>
+            <th>Task</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Due</th>
+            <th>Update</th>
+        </tr>
+
+        {% for t in tasks %}
+        <tr>
+            <td>{{ t.title }}</td>
+            <td>{{ t.owner or '-' }}</td>
+            <td>{{ t.status.value if t.status else '-' }}</td>
+            <td>{{ t.due_date or '-' }}</td>
+            <td>
+                <form method="post" action="{{ url_for('onboard.update_task', task_id=t.id) }}" class="inline-form">
+                    <select name="status" class="select-input">
+                        <option value="pending" {% if t.status.name == "PENDING" %}selected{% endif %}>Pending</option>
+                        <option value="in_progress" {% if t.status.name == "IN_PROGRESS" %}selected{% endif %}>In Progress</option>
+                        <option value="done" {% if t.status.name == "DONE" %}selected{% endif %}>Done</option>
+                    </select>
+
+                    <input name="owner" class="input-small" placeholder="owner" value="{{ t.owner or '' }}">
+                    <button type="submit" class="btn-small">Save</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form method="post" action="{{ url_for('onboard.send_task_reminders', request_id=request.id) }}">
+        <button type="submit" class="btn-secondary">🔔 Send Reminders</button>
+    </form>
+
+    <hr>
+
+    <!-- OFFER LETTER -->
+    <h3 class="subtitle">📄 Offer Letter</h3>
+
+    {% if request.offer %}
+        <p>Generated on: {{ request.offer.generated_at }}</p>
+        <a href="{{ url_for('onboard.download_offer', request_id=request.id) }}" class="btn-link">⬇ Download Offer Letter</a>
+
+        <h4>Send Offer by Email</h4>
+        <form method="post" action="{{ url_for('onboard.send_offer', request_id=request.id) }}" class="styled-form">
+            <input name="company_name" placeholder="Company Name" required>
+            <input name="subject" placeholder="Email Subject" required>
+            <textarea name="body" rows="4">Please find attached your offer letter.</textarea>
+            <button type="submit" class="btn-submit">Send Email</button>
+        </form>
+
+    {% else %}
+
+        <form method="post" action="{{ url_for('onboard.generate_offer', request_id=request.id) }}" class="styled-form">
+
+            <label>Compensation</label>
+            <input name="compensation" required>
+
+            <label>HR Name</label>
+            <input name="hr_name" required>
+
+            <label>Company Name</label>
+            <input name="company_name" required>
+
+            <button type="submit" class="btn-submit">Generate Offer Letter</button>
+        </form>
+
+    {% endif %}
+
+    <div class="nav-links">
+        <a href="{{ url_for('onboard.list_requests') }}" class="btn-link">← Back to All Requests</a>
+    </div>
+</div>
+
+<style>
+.page-container { max-width: 900px; margin: auto; padding: 20px; }
+.title { color: #024cab; }
+.subtitle { margin-top: 25px; }
+
+.styled-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+.styled-table th, .styled-table td {
+    padding: 10px; border-bottom: 1px solid #ccc; text-align: left;
+}
+
+.inline-form { display: flex; gap: 8px; }
+.select-input, .input-small {
+    padding: 6px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;
+}
+.btn-small {
+    padding: 6px 10px; background: #024cab; color: white; border: none; border-radius: 4px; cursor: pointer;
+}
+.btn-small:hover { background: #013b8c; }
+
+.styled-form { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+.styled-form input, .styled-form textarea {
+    padding: 10px; border: 1px solid #ccc; border-radius: 6px;
+}
+
+.btn-submit {
+    background: #024cab; color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer;
+}
+.btn-submit:hover { background: #013b8c; }
+
+.btn-secondary {
+    background: #555; color: white; padding: 8px 14px; border-radius: 6px; border: none; cursor: pointer;
+}
+
+.btn-link { color: #024cab; text-decoration: none; font-weight: 500; }
+.btn-link:hover { color: #013b8c; }
+</style>
+
+{% endblock %}

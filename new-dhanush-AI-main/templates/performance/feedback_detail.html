@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="detail-container">
+
+    <h2 class="title">💬 Feedback Details — #{{ feedback.id }}</h2>
+
+    <!-- Employee Info -->
+    <div class="info-box">
+        <p><strong>Employee ID:</strong> {{ feedback.employee_id }}</p>
+        <p><strong>Date:</strong> {{ feedback.created_at }}</p>
+    </div>
+
+    <!-- Feedback Text -->
+    <h3 class="section-title">Feedback Text</h3>
+    <div class="feedback-text">
+        {{ feedback.text }}
+    </div>
+
+    <!-- Sentiment Scores -->
+    <h3 class="section-title">Sentiment Analysis</h3>
+    <table class="sentiment-table">
+        <tr><th>TextBlob Polarity</th><td>{{ feedback.polarity }}</td></tr>
+        <tr><th>Subjectivity</th><td>{{ feedback.subjectivity }}</td></tr>
+        <tr><th>VADER Compound Score</th><td>{{ feedback.vader_compound }}</td></tr>
+    </table>
+
+    <!-- Tags -->
+    <h3 class="section-title">Tags</h3>
+    <p>
+        {% if feedback.tags %}
+            {% for tag in feedback.tags %}
+                <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        {% else %}
+            <em>No tags available</em>
+        {% endif %}
+    </p>
+
+    <!-- Back Button -->
+    <p style="margin-top: 20px;">
+        <a href="{{ url_for('performance.list_feedbacks', employee_id=feedback.employee_id) }}" class="back-link">← Back to Feedback List</a>
+    </p>
+
+</div>
+
+<style>
+.detail-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 25px;
+}
+.title {
+    text-align: center;
+    color: #024cab;
+    margin-bottom: 20px;
+}
+.info-box {
+    background: #fafafa;
+    padding: 14px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+.section-title {
+    margin-top: 25px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #222;
+}
+.feedback-text {
+    background: #fff;
+    padding: 18px;
+    border-radius: 8px;
+    border-left: 4px solid #024cab;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    white-space: pre-wrap;
+}
+.sentiment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.sentiment-table th {
+    background: #024cab;
+    color: white;
+    padding: 8px;
+    width: 45%;
+    text-align: right;
+}
+.sentiment-table td {
+    background: #f6f6f6;
+    padding: 8px;
+}
+.tag {
+    display: inline-block;
+    background: #dbe8ff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-right: 6px;
+    font-size: 14px;
+}
+.back-link {
+    color: #024cab;
+    text-decoration: none;
+    font-weight: 600;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+</style>
+
+{% endblock %}

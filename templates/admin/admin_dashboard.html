@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <h1 class="page-title">⚖️ Admin & Compliance Dashboard</h1>
+
+  <div class="cards-row">
+
+    <!-- Audit Logs -->
+    <div class="stat-card">
+      <h3>Audit Logs</h3>
+      <p class="count">{{ audits_count }}</p>
+      <a class="btn view-btn" href="{{ url_for('admin.admin_audits') }}">View Records</a>
+    </div>
+
+    <!-- API Activity -->
+    <div class="stat-card">
+      <h3>API Logs</h3>
+      <p class="count">{{ api_count }}</p>
+      <a class="btn view-btn" href="{{ url_for('admin.view_api_logs') }}">View Logs</a>
+    </div>
+
+    <!-- AI Activity -->
+    <div class="stat-card">
+      <h3>AI Activity</h3>
+      <p class="count">{{ ai_count }}</p>
+      <a class="btn view-btn" href="{{ url_for('admin.ai_activity') }}">View AI Events</a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #024cab;
+  margin-bottom: 24px;
+}
+
+.cards-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 250px;
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin-bottom: 8px;
+}
+
+.count {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 6px 0 16px 0;
+  color: #333;
+}
+
+.btn.view-btn {
+  background: #024cab;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn.view-btn:hover {
+  background: #013e8e;
+}
+</style>
+
+{% endblock %}

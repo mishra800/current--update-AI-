@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="resume-list-container">
+
+    <div class="header-row">
+        <h2>📂 Uploaded Resumes</h2>
+        <div class="page-actions">
+            <a href="{{ url_for('resume.upload_resume') }}" class="btn-primary">+ Upload Resume</a>
+            <a href="{{ url_for('resume.match_resumes') }}" class="btn-secondary">🎯 Match Resumes to Job</a>
+        </div>
+    </div>
+
+    {% if resumes %}
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>File Name</th>
+            <th>Uploaded</th>
+            <th>Skills</th>
+            <th>Score</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for r in resumes %}
+        <tr>
+            <td>{{ r.id }}</td>
+            <td>{{ r.original_filename }}</td>
+            <td>{{ r.uploaded_at }}</td>
+            <td>
+                {% if r.skills %}
+                    {{ r.skills | join(', ') }}
+                {% else %}
+                    <span class="no-skills">-</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if r.match_score %}
+                    {{ ('%.3f'|format(r.match_score)) }}
+                {% else %}
+                    <span class="no-score">-</span>
+                {% endif %}
+            </td>
+            <td><a href="{{ url_for('resume.view_resume', resume_id=r.id) }}" class="btn-view">View →</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-message">No resumes uploaded yet.</p>
+    {% endif %}
+
+</div>
+
+
+<style>
+    .resume-list-container {
+        max-width: 1100px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+
+    h2 {
+        color: #024cab;
+        font-weight: bold;
+    }
+
+    .page-actions a {
+        margin-left: 10px;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 8px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .btn-primary {
+        background: #024cab;
+        color: #fff;
+    }
+    .btn-primary:hover { background: #003b8a; }
+
+    .btn-secondary {
+        background: #f1f3ff;
+        color: #024cab;
+        border: 1px solid #024cab;
+    }
+    .btn-secondary:hover { background: #dfe6ff; }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 18px;
+        font-size: 15px;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .styled-table thead th {
+        background: #024cab;
+        color: #fff;
+    }
+
+    .styled-table tr:hover {
+        background: #f7f9ff;
+    }
+
+    .btn-view {
+        background: #024cab;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .btn-view:hover { background: #003b8a; }
+
+    .no-skills, .no-score {
+        color: #777;
+        font-style: italic;
+    }
+
+    .empty-message {
+        text-align: center;
+        padding: 25px;
+        color: #666;
+        font-style: italic;
+    }
+</style>
+
+{% endblock %}

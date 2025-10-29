@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <h1 class="page-title">🔍 API Logs</h1>
+
+  <div style="margin-bottom: 14px;">
+    <a class="export-btn" href="{{ url_for('admin.export_api_logs') }}">⬇ Export as CSV</a>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Method</th>
+          <th>Path</th>
+          <th>Status</th>
+          <th>Latency (ms)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in logs %}
+        <tr>
+          <td>{{ r.created_at }}</td>
+          <td>{{ r.method }}</td>
+          <td>{{ r.path }}</td>
+          <td>
+            {% if r.status_code >= 200 and r.status_code < 300 %}
+              <span class="status success">{{ r.status_code }}</span>
+            {% elif r.status_code >= 400 %}
+              <span class="status fail">{{ r.status_code }}</span>
+            {% else %}
+              {{ r.status_code }}
+            {% endif %}
+          </td>
+          <td>{{ r.latency_ms }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #024cab;
+  margin-bottom: 16px;
+}
+
+.export-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  background: #0A66C2;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.export-btn:hover {
+  background: #004a91;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+}
+
+.styled-table th, .styled-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 14px;
+}
+
+.styled-table th {
+  background: #f6f8fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.styled-table tr:hover {
+  background: #f9fcff;
+}
+
+.status.success {
+  color: #038a04;
+  font-weight: bold;
+}
+
+.status.fail {
+  color: #d10a0a;
+  font-weight: bold;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+    <h2 class="title">Admin Dashboard</h2>
+
+    <p class="user-info">
+        Logged in as: <b>{{ user.email }}</b>  
+        <span class="role-tag">{{ user.role|capitalize }}</span>
+    </p>
+
+    <hr>
+
+    <h3 class="section-title">System Management</h3>
+    <ul class="admin-menu">
+        <li><a href="{{ url_for('auth.register') }}">➕ Create New User</a></li>
+        <li><a href="{{ url_for('resume.list_resumes') }}">📂 View All Resumes</a></li>
+        <li><a href="{{ url_for('interview.list_interviews') }}">🎤 Interview Records</a></li>
+        <li><a href="{{ url_for('ats.list_applications') }}">📊 ATS Dashboard</a></li>
+        <li><a href="{{ url_for('onboard.list_requests') }}">📝 Onboarding Requests</a></li>
+        <li><a href="{{ url_for('perf.list_reviews') }}">⭐ Performance Reviews</a></li>
+        <li><a href="{{ url_for('analytics.dashboard') }}">📈 Analytics & Insights</a></li>
+        <li><a href="{{ url_for('chatbot.chat_ui') }}">🤖 HR Chatbot</a></li>
+    </ul>
+
+    <hr>
+
+    <h3 class="section-title">Admin Tools</h3>
+    <ul class="admin-menu">
+        <li><a href="{{ url_for('admin.view_logs') }}">📜 System Logs</a></li>
+        <li><a href="{{ url_for('admin.audit') }}">🔍 Security & Audit Trail</a></li>
+        <li><a href="{{ url_for('auth.logout') }}" style="color:#c03838;">🚪 Logout</a></li>
+    </ul>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.title {
+    margin-bottom: 10px;
+    color: #024cab;
+    font-size: 26px;
+}
+
+.user-info {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.role-tag {
+    background: #024cab;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-left: 6px;
+}
+
+.section-title {
+    margin-top: 25px;
+    font-size: 20px;
+    color: #024cab;
+}
+
+.admin-menu {
+    list-style: none;
+    padding-left: 0;
+}
+
+.admin-menu li {
+    margin: 8px 0;
+}
+
+.admin-menu a {
+    text-decoration: none;
+    color: #0077cc;
+    font-size: 15px;
+}
+
+.admin-menu a:hover {
+    text-decoration: underline;
+}
+</style>
+
+{% endblock %}

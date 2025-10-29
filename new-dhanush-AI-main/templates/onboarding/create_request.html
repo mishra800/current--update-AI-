@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+    <h2 class="title">📄 Create Onboarding Request</h2>
+
+    <form method="post" class="styled-form">
+
+        <label>Candidate Name</label>
+        <input name="candidate_name" required type="text" placeholder="John Doe">
+
+        <label>Email</label>
+        <input name="email" type="email" required placeholder="john@example.com">
+
+        <label>Phone</label>
+        <input name="phone" type="text" placeholder="+91 9876543210">
+
+        <label>Position / Role</label>
+        <input name="position" required type="text" placeholder="Software Engineer">
+
+        <label>Start Date</label>
+        <input name="start_date" type="date">
+
+        <button type="submit" class="btn-submit">Create Request</button>
+    </form>
+
+    <div class="nav-links">
+        <a href="{{ url_for('onboard.list_requests') }}" class="btn-link">View All Requests →</a>
+    </div>
+</div>
+
+
+<style>
+.page-container {
+    max-width: 650px;
+    margin: auto;
+    padding: 30px;
+}
+
+.title {
+    text-align: center;
+    color: #024cab;
+    margin-bottom: 25px;
+}
+
+.styled-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.styled-form input {
+    padding: 10px;
+    border: 1px solid #cfd7e3;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btn-submit {
+    background: #024cab;
+    color: #fff;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.25s;
+}
+
+.btn-submit:hover {
+    background: #023b8c;
+}
+
+.nav-links {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.btn-link {
+    text-decoration: none;
+    color: #024cab;
+    font-weight: 500;
+}
+.btn-link:hover {
+    color: #012f73;
+}
+</style>
+
+{% endblock %}

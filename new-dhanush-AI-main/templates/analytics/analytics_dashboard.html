@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+  <h1 class="page-title">📊 AI Analytics Dashboard</h1>
+
+  <!-- Upload Form -->
+  <div class="card">
+    <h3>📈 Forecast Hiring Trends</h3>
+    <form id="forecastForm" enctype="multipart/form-data" method="post" action="{{ url_for('analytics.forecast_api') }}">
+      <label>Upload Hiring CSV <small>(columns: date, hired_count)</small></label><br>
+      <input type="file" name="file" accept=".csv" required>
+
+      <button type="submit" class="btn primary">Upload & Generate Forecast</button>
+    </form>
+  </div>
+
+  <!-- Chart Display -->
+  <div class="chart-box">
+    <h3>Forecast Result</h3>
+    <div id="forecastChart" class="chart-area">No data yet — upload a CSV to see the forecast.</div>
+  </div>
+
+  <hr>
+
+  <!-- Latest AI Insights -->
+  <h2 class="section-title">🧠 Latest Insights</h2>
+  <ul class="insights-list">
+    {% for s in snaps %}
+      <li>
+        <span class="tag insight">{{ s.type|capitalize }}</span>
+        <strong>{{ s.title }}</strong>
+        <span class="date">{{ s.created_at.strftime('%Y-%m-%d') }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+
+<style>
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #024cab;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+.card input[type="file"] {
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: #024cab;
+  color: #fff;
+}
+
+.chart-box {
+  background: #fafbff;
+  border: 1px solid #dfe4f5;
+  padding: 18px;
+  border-radius: 8px;
+  margin-bottom: 22px;
+}
+
+.chart-area {
+  height: 350px;
+  border: 1px dashed #cdd5ea;
+  border-radius: 6px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #9297a4;
+  font-size: 14px;
+}
+
+.section-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.insights-list {
+  list-style: none;
+  padding: 0;
+}
+
+.insights-list li {
+  padding: 8px 6px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.tag.insight {
+  background: #e6f0ff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  color: #003b8e;
+  font-size: 13px;
+}
+
+.date {
+  margin-left: auto;
+  color: #70757c;
+  font-size: 13px;
+}
+</style>
+
+{% endblock %}

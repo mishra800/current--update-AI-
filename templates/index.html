@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI HR Management System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #024cab;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #024cab;
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+            background: white;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+<header>🚀 AI HR MANAGEMENT SYSTEM</header>
+
+<div class="container">
+    <div class="modules">
+
+        <div class="card"><a href="/auth/login">🔐 Login / Authentication</a></div>
+        <div class="card"><a href="/resume/upload_resume">📄 Resume Parsing System</a></div>
+        <div class="card"><a href="/interview/start">🎤 AI Interview Assistant</a></div>
+        <div class="card"><a href="/ats/jobs">🏢 ATS - Candidate Tracking</a></div>
+        <div class="card"><a href="/onboard/list">📋 Onboarding Workflow</a></div>
+        <div class="card"><a href="/performance/dashboard">📈 Performance Review Dashboard</a></div>
+        <div class="card"><a href="/payroll/attendance">💰 Payroll & Attendance</a></div>
+        <div class="card"><a href="/analytics/dashboard">📊 HR Analytics & Forecasting</a></div>
+        <div class="card"><a href="/chatbot/chat">🤖 HR Chatbot (Q&A + Docs)</a></div>
+        <div class="card"><a href="/admin/home">🛠️ Admin Console</a></div>
+
+    </div>
+</div>
+
+<footer>
+    © 2025 AI HR App | Smart HR Automation for Modern Organizations
+</footer>
+
+</body>
+</html>

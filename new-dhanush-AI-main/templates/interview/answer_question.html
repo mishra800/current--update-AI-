@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+    <h2 class="title">Interview Question {{ index }} / {{ total }}</h2>
+
+    <div class="question-box">
+        <h3>{{ question.title }}</h3>
+        <p>{{ question.prompt }}</p>
+    </div>
+
+    <form method="post" action="{{ url_for('interview.answer_question') }}" enctype="multipart/form-data" class="styled-form">
+
+        <label>Answer (Text)</label>
+        <textarea name="answer_text" rows="6" placeholder="Type your answer here..." class="text-input"></textarea>
+
+        <label>Or Upload an Audio Answer</label>
+        <input type="file" name="answer_audio" accept=".wav,.mp3,.m4a" class="file-input">
+
+        <button type="submit" class="btn-submit">Submit & Next →</button>
+    </form>
+
+    <div class="nav-links">
+        <a href="{{ url_for('interview.start') }}" class="btn-link">Restart Interview</a>
+    </div>
+</div>
+
+<style>
+.page-container { max-width: 800px; margin: auto; padding: 20px; }
+.title { color: #024cab; margin-bottom: 15px; }
+
+.question-box {
+    background: #f5f8ff;
+    border-left: 4px solid #024cab;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+}
+
+.styled-form { display: flex; flex-direction: column; gap: 15px; }
+
+.text-input, .file-input {
+    padding: 10px; font-size: 15px;
+    border: 1px solid #ccc; border-radius: 6px;
+    width: 100%;
+}
+
+.btn-submit {
+    background: #024cab; color: white;
+    padding: 12px; border: none;
+    border-radius: 6px; cursor: pointer;
+    font-size: 16px;
+}
+.btn-submit:hover { background: #013b8c; }
+
+.btn-link { color: #024cab; text-decoration: none; margin-top: 15px; display: inline-block; }
+.btn-link:hover { text-decoration: underline; }
+</style>
+
+{% endblock %}

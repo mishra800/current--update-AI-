@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="upload-container">
+
+    <h2>📄 Upload Resume</h2>
+    <p class="subtitle">Supported formats: <b>PDF, DOCX, DOC, TXT</b></p>
+
+    <form method="post" enctype="multipart/form-data" action="{{ url_for('resume.upload_resume') }}" class="upload-form">
+
+        <label class="file-label">
+            <input type="file" name="resume" accept=".pdf,.docx,.doc,.txt" required>
+        </label>
+
+        <button type="submit" class="btn-primary">⬆ Upload & Parse</button>
+
+    </form>
+
+    <div class="link-area">
+        <a href="{{ url_for('resume.list_resumes') }}" class="back-link">← View Uploaded Resumes</a>
+    </div>
+
+</div>
+
+<style>
+    .upload-container {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    h2 {
+        color: #024cab;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .subtitle {
+        color: #666;
+        margin-bottom: 25px;
+        font-size: 14px;
+    }
+
+    .upload-form input[type="file"] {
+        display: inline-block;
+        padding: 10px;
+        border-radius: 8px;
+        background: #f8f9ff;
+        border: 1px solid #ccd6f6;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .upload-form input[type="file"]:hover {
+        background: #eef2ff;
+    }
+
+    .btn-primary {
+        display: block;
+        width: 100%;
+        margin-top: 18px;
+        background: #024cab;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover {
+        background: #003b8a;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 18px;
+        color: #024cab;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+{% endblock %}

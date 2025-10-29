@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="resume-view-container">
+
+    <h2 class="title">📄 Resume #{{ resume.id }}</h2>
+    <p class="filename">{{ resume.original_filename }}</p>
+    <p class="timestamp">Uploaded at: {{ resume.uploaded_at }}</p>
+
+    <hr>
+
+    <h3>🧠 Detected Skills</h3>
+    <div class="skills-box">
+        {% if resume.skills %}
+            {{ resume.skills | join(', ') }}
+        {% else %}
+            <span class="empty">No skills detected</span>
+        {% endif %}
+    </div>
+
+    <h3>📘 Parsed Text (Preview)</h3>
+    <div class="text-preview">
+        {{ resume.parsed_text[:2000] }}
+        {% if resume.parsed_text|length > 2000 %}...{% endif %}
+    </div>
+
+    <div class="actions">
+        <a href="{{ url_for('resume.list_resumes') }}" class="btn-back">← Back to Resume List</a>
+    </div>
+
+</div>
+
+<style>
+    .resume-view-container {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 14px rgba(0,0,0,0.1);
+    }
+
+    .title {
+        font-size: 28px;
+        color: #024cab;
+        text-align: center;
+        margin-bottom: 4px;
+        font-weight: bold;
+    }
+
+    .filename {
+        text-align: center;
+        color: #444;
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    .timestamp {
+        text-align: center;
+        color: #666;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    h3 {
+        color: #024cab;
+        margin-top: 25px;
+        font-size: 20px;
+        font-weight: bold;
+        border-left: 4px solid #024cab;
+        padding-left: 8px;
+    }
+
+    .skills-box {
+        padding: 10px;
+        background: #f4f6ff;
+        border-radius: 6px;
+        margin-top: 8px;
+        line-height: 1.5;
+    }
+
+    .empty {
+        color: #777;
+        font-style: italic;
+    }
+
+    .text-preview {
+        background: #fafafa;
+        border-radius: 6px;
+        padding: 12px;
+        max-height: 500px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .btn-back {
+        padding: 10px 18px;
+        background: #024cab;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+
+    .btn-back:hover {
+        background: #003b8a;
+    }
+</style>
+
+{% endblock %}

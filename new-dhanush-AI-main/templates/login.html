@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="login-container">
+
+    <h2 class="title">Login</h2>
+
+    <!-- Login Form -->
+    <form method="POST" action="{{ url_for('auth.login') }}" class="login-form">
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <button type="submit" class="btn-login">Login</button>
+    </form>
+
+    <p class="register-link">
+        New user? <a href="{{ url_for('auth.register') }}">Register Here</a>
+    </p>
+
+</div>
+
+<style>
+    .login-container {
+        width: 380px;
+        margin: 50px auto;
+        padding: 25px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .title {
+        margin-bottom: 18px;
+        color: #024cab;
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    .login-form {
+        text-align: left;
+    }
+
+    label {
+        font-weight: 600;
+        color: #444;
+        margin-top: 12px;
+        display: block;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border: 1px solid #bbb;
+    }
+
+    .btn-login {
+        width: 100%;
+        background: #024cab;
+        color: white;
+        padding: 10px;
+        margin-top: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .btn-login:hover {
+        background: #003b8a;
+    }
+
+    .register-link {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .register-link a {
+        font-weight: 600;
+        color: #024cab;
+        text-decoration: none;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <h1 class="page-title">🛡️ Audit Logs</h1>
+
+  <div style="margin-bottom: 14px;">
+    <a class="export-btn" href="{{ url_for('admin.export_audits') }}">⬇ Export as CSV</a>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Actor</th>
+          <th>Action</th>
+          <th>Resource</th>
+          <th>Details</th>
+          <th>IP</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in logs %}
+        <tr>
+          <td>{{ l.created_at }}</td>
+          <td>{{ l.actor_name or l.actor_id }}</td>
+          <td><span class="badge">{{ l.action.value }}</span></td>
+          <td>{{ l.resource_type }} / {{ l.resource_id }}</td>
+          <td><pre class="details-text">{{ l.details }}</pre></td>
+          <td>{{ l.ip_address }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #024cab;
+  margin-bottom: 16px;
+}
+
+.export-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  background: #0A66C2;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.export-btn:hover {
+  background: #004a91;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+}
+
+.styled-table th, .styled-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 14px;
+}
+
+.styled-table th {
+  background: #f6f8fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.styled-table tr:hover {
+  background: #f9fcff;
+}
+
+.badge {
+  padding: 3px 8px;
+  background: #eaf3ff;
+  color: #0051c3;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.details-text {
+  white-space: pre-wrap;
+  max-width: 450px;
+  font-size: 13px;
+}
+</style>
+
+{% endblock %}

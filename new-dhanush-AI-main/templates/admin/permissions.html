@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <h1 class="page-title">🔐 Role Permissions</h1>
+
+  <form method="post" class="form-card">
+    <div class="form-group">
+      <label>Role Name</label>
+      <input name="role_name" placeholder="e.g. hr, admin, employee" required>
+    </div>
+
+    <div class="form-group">
+      <label>Permission</label>
+      <input name="permission" placeholder="e.g. view_payroll, manage_jobs" required>
+    </div>
+
+    <button type="submit" class="btn-primary">Add Permission</button>
+  </form>
+
+  <h2 class="sub-title">Existing Permissions</h2>
+
+  <div class="table-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Permission</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in items %}
+        <tr>
+          <td>{{ p.role_name }}</td>
+          <td>{{ p.permission }}</td>
+          <td>
+            <form method="post" action="{{ url_for('admin.permission_delete', pid=p.id) }}" onsubmit="return confirm('Delete this permission?');">
+              <button type="submit" class="btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3" style="text-align:center; color:#777;">No permissions added yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #024cab;
+  margin-bottom: 16px;
+}
+.sub-title {
+  margin-top: 28px;
+  font-size: 20px;
+  color: #024cab;
+}
+.form-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+}
+.form-group {
+  margin-bottom: 14px;
+}
+.form-group label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.btn-primary {
+  background: #0A66C2;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #004a91;
+}
+.btn-danger {
+  background: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.btn-danger:hover {
+  background: #b12320;
+}
+.table-wrapper {
+  overflow-x: auto;
+}
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.styled-table th, .styled-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+.styled-table th {
+  background: #f6f8fa;
+  font-weight: 600;
+  color: #333;
+}
+.styled-table tr:hover {
+  background: #f9fcff;
+}
+</style>
+
+{% endblock %}

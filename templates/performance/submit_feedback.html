@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+    <h2 class="title">📝 Submit Employee Feedback</h2>
+
+    <form method="post" action="{{ url_for('performance.submit_feedback') }}" class="form-card">
+
+        <label class="form-label">Employee ID (Feedback about whom)</label>
+        <input name="employee_id" type="number" class="form-input" required>
+
+        <label class="form-label">Your User ID (optional)</label>
+        <input name="author_id" type="number" class="form-input">
+
+        <label class="form-label">Feedback Message</label>
+        <textarea name="text" rows="6" class="form-textarea" placeholder="Write detailed feedback..." required></textarea>
+
+        <label class="form-label">Tags (optional, comma separated)</label>
+        <input name="tags" class="form-input" placeholder="communication, teamwork">
+
+        <button type="submit" class="btn-primary">✅ Submit Feedback</button>
+
+    </form>
+
+    <div class="nav-links">
+        <a href="{{ url_for('performance.list_feedbacks', employee_id=1) }}" class="btn-tertiary">← Back to Feedback List</a>
+    </div>
+</div>
+
+
+<style>
+.page-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+}
+
+.title {
+    text-align: center;
+    color: #024cab;
+    margin-bottom: 20px;
+}
+
+.form-card {
+    background: #fafcff;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #d7e3ff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.form-label {
+    font-weight: 600;
+    margin-top: 15px;
+    display: block;
+    color: #333;
+}
+
+.form-input, .form-textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #cdd7ee;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background: white;
+}
+
+.form-input:focus, .form-textarea:focus {
+    border-color: #024cab;
+    outline: none;
+}
+
+.btn-primary {
+    background: #024cab;
+    color: #fff;
+    padding: 11px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background: #013a89;
+}
+
+.nav-links {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.btn-tertiary {
+    text-decoration: none;
+    color: #024cab;
+    font-weight: 500;
+}
+.btn-tertiary:hover {
+    color: #013a89;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Start Interview</h2>
+  <form method="post" action="{{ url_for('interview.start_interview') }}">
+    <label>Your name</label><br>
+    <input type="text" name="candidate_name" required><br><br>
+
+    <label>Email (optional)</label><br>
+    <input type="email" name="email"><br><br>
+
+    <label>Choose questions</label><br>
+    {% for q in questions %}
+      <input type="checkbox" name="question_ids" value="{{ q.id }}" id="q{{ q.id }}">
+      <label for="q{{ q.id }}">{{ q.title }} — {{ q.prompt[:80] }}{% if q.prompt|length>80 %}...{% endif %}</label><br>
+    {% endfor %}
+    <br>
+    <button type="submit">Start Interview</button>
+  </form>
+{% endblock %}

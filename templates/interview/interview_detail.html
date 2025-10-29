@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+    <h2 class="title">Interview #{{ interview.id }} — {{ interview.candidate_name }}</h2>
+
+    <div class="summary-box">
+        <p><strong>Final Score:</strong> <span class="score">{{ interview.score }}</span></p>
+        <p><a href="{{ url_for('interview.start') }}" class="btn-link">Start a new Interview</a></p>
+    </div>
+
+    <h3 class="section-title">Responses</h3>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Answer (text)</th>
+                <th>Audio</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for r in responses %}
+            <tr>
+                <td>{{ r.question.title }}</td>
+                <td>
+                    {% if r.answer_text %}
+                        {{ r.answer_text[:400] }}{% if r.answer_text|length>400 %}...{% endif %}
+                    {% else %}
+                        <i>No text provided</i>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if r.audio_filename %}
+                        <a href="{{ url_for('static', filename='uploads/' ~ r.audio_filename) }}" target="_blank">🎧 Play Audio</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+
+                <td>{{ r.score or "-" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+.page-container { max-width: 900px; margin: auto; padding: 20px; }
+.title { color: #024cab; margin-bottom: 10px; }
+
+.summary-box {
+    background: #eaf1ff;
+    border-left: 4px solid #024cab;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+.score { font-size: 20px; color: #024cab; font-weight: bold; }
+
+.section-title { margin: 20px 0 10px; }
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.styled-table th, .styled-table td {
+    border: 1px solid #cccccc;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.styled-table th {
+    background: #f4f7ff;
+    font-weight: bold;
+}
+
+.btn-link {
+    color: #024cab;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+</style>
+
+{% endblock %}

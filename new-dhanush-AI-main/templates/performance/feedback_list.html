@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+    <h2 class="title">💬 Feedback for Employee #{{ employee_id }}</h2>
+
+    <p class="top-action">
+        <a href="{{ url_for('performance.submit_feedback', employee_id=employee_id) }}" class="btn-primary">
+            + Submit New Feedback
+        </a>
+    </p>
+
+    {% if feedbacks %}
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Feedback (Preview)</th>
+                <th>Polarity</th>
+                <th>VADER</th>
+                <th>Date</th>
+                <th>View</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for f in feedbacks %}
+            <tr>
+                <td>{{ f.id }}</td>
+                <td>{{ f.text[:120] }}{% if f.text|length > 120 %}...{% endif %}</td>
+                <td>{{ f.polarity }}</td>
+                <td>{{ f.vader_compound }}</td>
+                <td>{{ f.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+                <td>
+                    <a href="{{ url_for('performance.view_feedback', fb_id=f.id) }}" class="link">View</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="empty-msg">No feedback entries yet for this employee.</p>
+    {% endif %}
+
+</div>
+
+
+<style>
+.page-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 25px;
+}
+.title {
+    text-align: center;
+    color: #024cab;
+    margin-bottom: 20px;
+}
+.top-action {
+    text-align: right;
+    margin-bottom: 10px;
+}
+.btn-primary {
+    background: #024cab;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+.btn-primary:hover {
+    background: #013a89;
+}
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.styled-table thead {
+    background: #024cab;
+    color: white;
+}
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+.styled-table tbody tr:hover {
+    background-color: #f5f9ff;
+}
+.link {
+    color: #024cab;
+    text-decoration: none;
+    font-weight: 600;
+}
+.link:hover {
+    text-decoration: underline;
+}
+.empty-msg {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+</style>
+
+{% endblock %}

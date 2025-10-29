@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="results-container">
+
+    <h2 class="title">📊 Match Results for: <span class="job-name">"{{ job_title }}"</span></h2>
+
+    <div class="job-snippet">
+        <b>Job Description Preview:</b><br>
+        {{ job_desc[:400] }}{% if job_desc|length > 400 %}...{% endif %}
+    </div>
+
+    <div class="actions">
+        <a href="{{ url_for('resume.match_resumes') }}" class="btn-secondary">🔄 Run another match</a>
+        <a href="{{ url_for('resume.list_resumes') }}" class="btn-secondary">📁 Back to Resumes</a>
+    </div>
+
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Resume</th>
+                <th>Skills Extracted</th>
+                <th>Match Score</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for idx, item in enumerate(results) %}
+            <tr>
+                <td>{{ idx + 1 }}</td>
+                <td>
+                    <a href="{{ url_for('resume.view_resume', resume_id=item.resume.id) }}">
+                        {{ item.resume.original_filename }}
+                    </a>
+                </td>
+                <td>
+                    {% if item.resume.skills %}
+                        {{ item.resume.skills | join(', ') }}
+                    {% else %}
+                        <span class="empty">No skills detected</span>
+                    {% endif %}
+                </td>
+                <td>{{ "%.4f"|format(item.score) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+    .results-container {
+        margin: auto;
+        max-width: 900px;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+
+    .title {
+        text-align: center;
+        font-size: 26px;
+        font-weight: bold;
+        color: #024cab;
+    }
+
+    .job-name {
+        color: #111;
+    }
+
+    .job-snippet {
+        margin-top: 12px;
+        padding: 12px;
+        background: #f6f6f6;
+        border-radius: 6px;
+        font-size: 15px;
+        line-height: 1.4;
+        border-left: 4px solid #024cab;
+    }
+
+    .actions {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .btn-secondary {
+        display: inline-block;
+        margin: 0 8px;
+        padding: 8px 14px;
+        background: #e9f1ff;
+        color: #024cab;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 1px solid #024cab;
+    }
+
+    .btn-secondary:hover {
+        background: #024cab;
+        color: #fff;
+    }
+
+    .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 18px;
+        font-size: 15px;
+    }
+
+    .results-table th, .results-table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .results-table th {
+        background: #024cab;
+        color: #fff;
+        text-align: center;
+    }
+
+    .results-table tr:hover {
+        background: #f4f4f4;
+    }
+
+    .empty {
+        color: #777;
+        font-style: italic;
+    }
+</style>
+
+{% endblock %}

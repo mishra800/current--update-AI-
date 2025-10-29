@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <h2 class="page-title">💼 Job: {{ job.title }}</h2>
+
+    <div class="job-desc-box">
+        <p>{{ job.description }}</p>
+        <a href="{{ url_for('ats.apply_job', job_id=job.id) }}" class="btn primary">Apply to this Job</a>
+    </div>
+
+    <h3 class="sub-title">📄 Applications</h3>
+
+    <form method="post" action="{{ url_for('ats.auto_promote', job_id=job.id) }}" class="promote-form">
+        <label>Promote top</label>
+        <input type="number" name="top_n" value="3" min="1">
+        <span>from <b>APPLIED</b> → <b>SCREENING</b></span>
+        <button type="submit" class="btn small">Auto Promote</button>
+    </form>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Applicant</th>
+                <th>Resume Score</th>
+                <th>Interview Score</th>
+                <th>Final Score</th>
+                <th>Status</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for a in applications %}
+            <tr>
+                <td>{{ a.id }}</td>
+                <td>{{ a.applicant.name }}</td>
+                <td>{{ a.resume_score or '-' }}</td>
+                <td>{{ a.interview_score or '-' }}</td>
+                <td>{{ a.final_score or '-' }}</td>
+                <td class="status">{{ a.status.value }}</td>
+                <td><a class="btn link" href="{{ url_for('ats.application_detail', app_id=a.id) }}">View</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+<style>
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 20px;
+}
+
+.page-title {
+    font-size: 26px;
+    font-weight: 600;
+    color: #024cab;
+    margin-bottom: 15px;
+}
+
+.job-desc-box {
+    background: #f7faff;
+    border: 1px solid #d0d9ec;
+    padding: 18px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.sub-title {
+    margin: 18px 0 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.promote-form {
+    margin-bottom: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.promote-form input {
+    width: 70px;
+    padding: 6px;
+    border: 1px solid #c2cbe0;
+    border-radius: 6px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    background: white;
+}
+
+.styled-table th, .styled-table td {
+    border: 1px solid #d7dcee;
+    padding: 10px;
+    text-align: left;
+}
+
+.styled-table th {
+    background: #e8eefb;
+    font-weight: 600;
+}
+
+.status {
+    font-weight: 600;
+    color: #003b91;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.primary {
+    background: #024cab;
+    color: #fff;
+}
+
+.btn.small {
+    background: #6776f4;
+    color: #fff;
+    padding: 6px 10px;
+}
+
+.btn.link {
+    color: #024cab;
+    font-weight: 600;
+    text-decoration: underline;
+}
+</style>
+
+{% endblock %}

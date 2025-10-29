@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="perf-container">
+
+    <h2>📊 Create Performance Review</h2>
+    <p class="subtitle">Fill the employee review details below</p>
+
+    <form method="post" class="perf-form">
+
+        <label>Employee ID</label>
+        <input name="employee_id" type="number" required>
+
+        <label>Period Start</label>
+        <input name="period_start" type="date" required>
+
+        <label>Period End</label>
+        <input name="period_end" type="date" required>
+
+        <label>Performance Scores (JSON Format)</label>
+        <textarea name="scores_json" rows="5" placeholder='{"communication":4,"delivery":3.5}' required></textarea>
+
+        <label>Overall Score</label>
+        <input name="overall_score" type="number" step="0.1" placeholder="4.2">
+
+        <button type="submit" class="btn-primary">Save Review</button>
+
+    </form>
+
+    <div class="link-area">
+        <a href="{{ url_for('performance.list_reviews') }}" class="back-link">← Back to Reviews</a>
+    </div>
+
+</div>
+
+<style>
+    .perf-container {
+        max-width: 700px;
+        margin: auto;
+        background: #fff;
+        padding: 32px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    }
+    h2 {
+        text-align: center;
+        color: #024cab;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    .subtitle {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 25px;
+    }
+    .perf-form label {
+        font-weight: 600;
+        margin: 10px 0 6px;
+        display: block;
+        color: #333;
+    }
+    .perf-form input,
+    .perf-form textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #d5d9e2;
+        background: #f7f9fc;
+        font-size: 15px;
+    }
+    .perf-form input:focus,
+    .perf-form textarea:focus {
+        outline: none;
+        border-color: #024cab;
+        background: #fff;
+    }
+    .btn-primary {
+        width: 100%;
+        margin-top: 22px;
+        background: #024cab;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+    .btn-primary:hover {
+        background: #003a8c;
+    }
+    .link-area {
+        text-align: center;
+        margin-top: 16px;
+    }
+    .back-link {
+        color: #024cab;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+{% endblock %}

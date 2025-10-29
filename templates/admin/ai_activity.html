@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <h1 class="page-title">🤖 AI Activity Logs</h1>
+
+  <div class="table-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Model</th>
+          <th>Endpoint</th>
+          <th>Latency (ms)</th>
+          <th>Success</th>
+          <th>Actor</th>
+          <th>Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td>{{ r.created_at }}</td>
+          <td>{{ r.model_name }}</td>
+          <td>{{ r.endpoint }}</td>
+          <td>{{ r.latency_ms }}</td>
+          <td>
+            {% if r.success %}
+              <span class="status success">✔</span>
+            {% else %}
+              <span class="status fail">✖</span>
+            {% endif %}
+          </td>
+          <td>{{ r.actor_id }}</td>
+          <td>{{ r.error_text[:200] if r.error_text else '-' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #024cab;
+  margin-bottom: 20px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.08);
+}
+
+.styled-table th, .styled-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 14px;
+}
+
+.styled-table th {
+  background: #f6f8fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.styled-table tr:hover {
+  background: #f9fcff;
+}
+
+.status.success {
+  color: #038a04;
+  font-weight: bold;
+}
+
+.status.fail {
+  color: #d10a0a;
+  font-weight: bold;
+}
+</style>
+
+{% endblock %}

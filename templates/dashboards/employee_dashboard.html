@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+    <h2 class="title">Employee Dashboard</h2>
+
+    <p class="user-info">
+        Welcome, <b>{{ user.email }}</b>
+        <span class="role-tag">{{ user.role|capitalize }}</span>
+    </p>
+
+    <hr>
+
+    <h3 class="section-title">Your Work Overview</h3>
+
+    <ul class="dashboard-menu">
+        <li><a href="{{ url_for('perf.employee_dashboard', employee_id=user.id) }}">📊 Performance & Work Metrics</a></li>
+        <li><a href="{{ url_for('perf.list_feedbacks', employee_id=user.id) }}">💬 Feedback Report</a></li>
+        <li><a href="{{ url_for('performance.list_reviews', employee_id=user.id) }}">⭐ Performance Reviews</a></li>
+        <li><a href="{{ url_for('payroll.view_payroll', employee_id=user.id) }}">💰 Payroll & Salary Statements</a></li>
+        <li><a href="{{ url_for('payroll.attendance_records', emp_id=user.id) }}">🕒 Attendance & Working Hours</a></li>
+        <li><a href="{{ url_for('chatbot.chat_ui') }}">🤖 HR Chatbot</a></li>
+    </ul>
+
+    <hr>
+
+    <h3 class="section-title">Self-Service</h3>
+
+    <ul class="dashboard-menu">
+        <li><a href="{{ url_for('resume.upload_resume') }}">📄 Upload / Update Resume</a></li>
+        <li><a href="{{ url_for('interview.start_interview') }}">🎤 Practice Mock Interview</a></li>
+    </ul>
+
+    <hr>
+
+    <p><a href="{{ url_for('auth.logout') }}" class="logout">🚪 Logout</a></p>
+
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.title {
+    margin-bottom: 10px;
+    color: #024cab;
+    font-size: 26px;
+}
+
+.user-info {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.role-tag {
+    background: #024cab;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-left: 6px;
+}
+
+.section-title {
+    margin-top: 28px;
+    font-size: 20px;
+    color: #024cab;
+}
+
+.dashboard-menu {
+    list-style: none;
+    padding-left: 0;
+}
+
+.dashboard-menu li {
+    margin: 10px 0;
+}
+
+.dashboard-menu a {
+    text-decoration: none;
+    color: #0077cc;
+    font-size: 16px;
+}
+
+.dashboard-menu a:hover {
+    text-decoration: underline;
+}
+
+.logout {
+    color: #c03434;
+    font-weight: bold;
+}
+</style>
+
+{% endblock %}

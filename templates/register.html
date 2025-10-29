@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="register-container">
+
+    <h2 class="title">Create Account</h2>
+
+    <form method="POST" action="{{ url_for('auth.register') }}" class="register-form">
+
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter your full name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Create a password" required>
+
+        <label>Role</label>
+        <select name="role" required>
+            <option value="employee" selected>Employee</option>
+            <option value="hr">HR</option>
+            <option value="admin">Admin</option>
+        </select>
+
+        <button type="submit" class="btn-register">Register</button>
+    </form>
+
+    <p class="login-link">
+        Already have an account? <a href="{{ url_for('auth.login') }}">Login Here</a>
+    </p>
+
+</div>
+
+<style>
+    .register-container {
+        width: 420px;
+        margin: 50px auto;
+        padding: 25px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .title {
+        margin-bottom: 18px;
+        color: #024cab;
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    .register-form {
+        text-align: left;
+    }
+
+    label {
+        font-weight: 600;
+        color: #444;
+        margin-top: 12px;
+        display: block;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border: 1px solid #bbb;
+    }
+
+    .btn-register {
+        width: 100%;
+        background: #024cab;
+        color: white;
+        padding: 10px;
+        margin-top: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .btn-register:hover {
+        background: #003b8a;
+    }
+
+    .login-link {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .login-link a {
+        font-weight: 600;
+        color: #024cab;
+        text-decoration: none;
+    }
+</style>
+
+{% endblock %}

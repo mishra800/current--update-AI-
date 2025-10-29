@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+    <h2 class="title">💰 Payroll Summary — Employee #{{ pr.employee_id }}</h2>
+    <h3 class="subtitle">Month: {{ pr.month }}</h3>
+
+    <table class="styled-table">
+        <tbody>
+            <tr>
+                <th>Base Salary</th>
+                <td>₹{{ pr.base_salary }}</td>
+            </tr>
+            <tr>
+                <th>Total Hours</th>
+                <td>{{ pr.total_hours }}</td>
+            </tr>
+            <tr>
+                <th>Overtime Hours</th>
+                <td>{{ pr.overtime_hours }}</td>
+            </tr>
+            <tr>
+                <th>Leaves Taken</th>
+                <td>{{ pr.leaves }}</td>
+            </tr>
+            <tr class="highlight">
+                <th>Final Salary (Net Pay)</th>
+                <td><b>₹{{ pr.final_salary }}</b></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="nav-links">
+        <a href="{{ url_for('payroll.generate_payroll') }}" class="btn-link">← Generate Another Payroll</a>
+        <a href="{{ url_for('payroll.payroll_list') }}" class="btn-link">View Payroll History →</a>
+    </div>
+</div>
+
+<style>
+.page-container {
+    max-width: 750px;
+    margin: auto;
+    padding: 30px;
+}
+
+.title {
+    text-align: center;
+    color: #024cab;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #51607a;
+    margin-bottom: 25px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.styled-table th {
+    text-align: left;
+    background: #f5f7ff;
+    padding: 14px;
+    width: 50%;
+    border-bottom: 1px solid #e6e9f3;
+}
+
+.styled-table td {
+    text-align: right;
+    padding: 14px;
+    border-bottom: 1px solid #e6e9f3;
+}
+
+.highlight td, .highlight th {
+    background: #024cab;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.nav-links {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn-link {
+    text-decoration: none;
+    padding: 8px 14px;
+    background: #024cab;
+    color: #fff;
+    border-radius: 4px;
+    margin: 0 6px;
+    display: inline-block;
+    transition: 0.2s;
+}
+
+.btn-link:hover {
+    background: #013a89;
+}
+</style>
+
+{% endblock %}

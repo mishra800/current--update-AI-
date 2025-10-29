@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+    <h2 class="title">🕒 Mark Attendance</h2>
+
+    <form method="post" action="{{ url_for('payroll.mark_attendance') }}" class="form-card">
+
+        <label class="form-label">Employee ID</label>
+        <input name="employee_id" type="number" class="form-input" required>
+
+        <label class="form-label">Check-In Time</label>
+        <input type="datetime-local" name="check_in" class="form-input" required>
+
+        <label class="form-label">Check-Out Time</label>
+        <input type="datetime-local" name="check_out" class="form-input" required>
+
+        <label class="form-label">Latitude (optional)</label>
+        <input name="geo_lat" class="form-input" placeholder="Ex: 17.4445">
+
+        <label class="form-label">Longitude (optional)</label>
+        <input name="geo_lon" class="form-input" placeholder="Ex: 78.4455">
+
+        <button type="submit" class="btn-primary">✅ Save Attendance</button>
+    </form>
+
+    <div class="nav-links">
+        <a href="{{ url_for('payroll.view_attendance') }}" class="btn-link">← View Attendance Records</a>
+    </div>
+</div>
+
+<style>
+.page-container {
+    max-width: 750px;
+    margin: auto;
+    padding: 30px;
+}
+
+.title {
+    text-align: center;
+    color: #024cab;
+    margin-bottom: 20px;
+}
+
+.form-card {
+    background: #fafcff;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #d7e3ff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.form-label {
+    font-weight: 600;
+    margin-top: 14px;
+    display: block;
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #cdd7ee;
+    margin-top: 6px;
+    margin-bottom: 14px;
+}
+
+.form-input:focus {
+    border-color: #024cab;
+    outline: none;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #024cab;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background: #013a89;
+}
+
+.nav-links {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.btn-link {
+    text-decoration: none;
+    color: #024cab;
+    font-weight: 500;
+}
+.btn-link:hover {
+    color: #013a89;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+    <h2 class="title">🗂 Attendance Records — Employee #{{ emp_id }}</h2>
+
+    {% if recs %}
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Check-In</th>
+                <th>Check-Out</th>
+                <th>Total Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for r in recs %}
+            <tr>
+                <td>{{ r.check_in.date() }}</td>
+                <td>{{ r.check_in.time() }}</td>
+                <td>{{ r.check_out.time() }}</td>
+                <td>{{ '%.2f'|format(r.hours_worked or 0) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="no-data">No attendance data found for this employee.</p>
+    {% endif %}
+
+    <div class="nav-links">
+        <a href="{{ url_for('payroll.mark_attendance') }}" class="btn-link">← Mark Attendance</a>
+    </div>
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #024cab;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.styled-table thead {
+    background: #024cab;
+    color: #fff;
+}
+
+.styled-table th, .styled-table td {
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #e6e9f3;
+}
+
+.styled-table tr:nth-child(even) {
+    background: #f7f9ff;
+}
+
+.no-data {
+    text-align: center;
+    margin-top: 25px;
+    color: #666;
+}
+
+.nav-links {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.btn-link {
+    text-decoration: none;
+    color: #024cab;
+    font-weight: 500;
+}
+.btn-link:hover {
+    color: #013a89;
+}
+</style>
+
+{% endblock %}

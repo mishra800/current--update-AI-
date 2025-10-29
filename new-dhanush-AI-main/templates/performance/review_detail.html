@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+    <h2 class="title">📊 Performance Review #{{ review.id }}</h2>
+    <p class="subheading">Employee ID: <b>{{ review.employee_id }}</b></p>
+
+    <div class="info-box">
+        <p><b>Review Period:</b> {{ review.period_start }} → {{ review.period_end }}</p>
+        <p><b>Overall Score:</b> {{ review.overall_score }}</p>
+    </div>
+
+    <h3 class="section-title">🎯 Detailed Scores</h3>
+    <pre class="score-box">{{ review.scores }}</pre>
+
+    <h3 class="section-title">📝 Summary</h3>
+    {% if review.summary %}
+        <p class="summary-text">{{ review.summary }}</p>
+    {% else %}
+        <p class="no-summary">No summary generated yet.</p>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('performance.generate_summary', review_id=review.id) }}">
+        <label class="checkbox">
+            <input type="checkbox" name="use_llm" value="true">
+            Generate using AI (requires OPENAI_API_KEY)
+        </label>
+        <button type="submit" class="btn-primary">✨ Generate Summary</button>
+    </form>
+
+    <div class="nav-links">
+        <a href="{{ url_for('performance.create_review') }}" class="btn-secondary">➕ Create Another Review</a>
+        <a href="{{ url_for('performance.employee_dashboard', employee_id=review.employee_id) }}" class="btn-tertiary">← Back to Employee Dashboard</a>
+    </div>
+
+</div>
+
+
+<style>
+.page-container {
+    max-width: 850px;
+    margin: auto;
+    padding: 25px;
+}
+.title {
+    text-align: center;
+    color: #024cab;
+    margin-bottom: 5px;
+}
+.subheading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+.info-box {
+    background: #f3f7ff;
+    border-left: 4px solid #024cab;
+    padding: 12px 16px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+}
+.section-title {
+    margin-top: 20px;
+    color: #024cab;
+}
+.score-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.summary-text {
+    padding: 14px;
+    background: #fdfdfd;
+    border-left: 4px solid #4cb94a;
+    border-radius: 6px;
+}
+.no-summary {
+    color: #777;
+    font-style: italic;
+}
+.checkbox {
+    display: block;
+    margin: 15px 0;
+}
+.btn-primary {
+    background: #024cab;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+}
+.btn-primary:hover {
+    background: #013a89;
+}
+.nav-links {
+    margin-top: 25px;
+}
+.btn-secondary, .btn-tertiary {
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-block;
+}
+.btn-secondary {
+    background: #e7f0ff;
+    color: #024cab;
+    margin-right: 10px;
+}
+.btn-tertiary {
+    background: #f7f7f7;
+    color: #555;
+}
+.btn-secondary:hover, .btn-tertiary:hover {
+    background: #e0e7ff;
+}
+</style>
+
+{% endblock %}

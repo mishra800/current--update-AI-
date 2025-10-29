@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="chatbot-container">
+
+    <h2 class="title">🤖 HR Chatbot Assistant</h2>
+    <p class="subtitle">Ask HR policy questions, salary queries, leave rules, or upload internal documents for context.</p>
+
+    <!-- Upload Section -->
+    <div class="upload-box">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label class="label">Upload HR Document (PDF / DOCX / TXT):</label>
+            <div class="upload-row">
+                <input type="file" name="file" id="fileInput" accept=".pdf,.docx,.doc,.txt">
+                <input type="text" name="uploader" placeholder="Your name (optional)">
+                <button type="submit" class="btn small">Upload</button>
+            </div>
+        </form>
+        <div id="uploadStatus" class="status"></div>
+    </div>
+
+    <!-- Chat Window -->
+    <div id="chatBox" class="chat-box"></div>
+
+    <!-- Input Area -->
+    <div class="chat-input-row">
+        <input id="questionInput" class="chat-input" placeholder="Type your question here...">
+        <button id="askBtn" class="btn">Send</button>
+    </div>
+
+    <label class="toggle">
+        <input type="checkbox" id="useOpenAI" checked>
+        Use OpenAI Model (if API key configured)
+    </label>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+
+<style>
+.chatbot-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.title {
+    font-size: 26px;
+    color: #024cab;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    margin-bottom: 16px;
+    color: #444;
+    font-size: 15px;
+}
+
+.upload-box {
+    background: #f8f9fc;
+    border: 1px solid #d7dcea;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+}
+
+.upload-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.status {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #008400;
+}
+
+.chat-box {
+    border: 1px solid #c9d2e0;
+    padding: 12px;
+    border-radius: 8px;
+    height: 420px;
+    overflow-y: auto;
+    background: #ffffff;
+    margin-bottom: 10px;
+}
+
+/* Chat message styles */
+.chat-msg {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 80%;
+    white-space: pre-wrap;
+}
+
+.bot {
+    background: #e7f0ff;
+    border-left: 4px solid #024cab;
+}
+
+.user {
+    background: #dfffe0;
+    border-left: 4px solid #2e9b48;
+    margin-left: auto;
+}
+
+.chat-input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #b7c4db;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.btn {
+    background: #024cab;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn.small {
+    padding: 8px 14px;
+}
+
+.btn:hover {
+    background: #013b8a;
+}
+
+.toggle {
+    margin-top: 4px;
+    display: inline-block;
+    font-size: 14px;
+}
+</style>
+
+{% endblock %}

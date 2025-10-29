@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-container">
+
+    <h2 class="title">HR Dashboard</h2>
+
+    <p class="user-info">
+        Welcome, <b>{{ user.email }}</b>
+        <span class="role-tag">{{ user.role|capitalize }}</span>
+    </p>
+
+    <hr>
+
+    <h3 class="section-title">Talent Management</h3>
+
+    <ul class="dashboard-menu">
+        <li><a href="{{ url_for('resume.list_resumes') }}">📄 Resume Database</a></li>
+        <li><a href="{{ url_for('resume.match_resumes') }}">🎯 Match Resumes to Job</a></li>
+        <li><a href="{{ url_for('ats.dashboard') }}">📋 ATS — Applicant Tracking</a></li>
+        <li><a href="{{ url_for('interview.list_questions') }}">🎤 Interview Question Bank</a></li>
+        <li><a href="{{ url_for('interview.start_interview') }}">🧪 Start Interview Session</a></li>
+    </ul>
+
+    <hr>
+
+    <h3 class="section-title">Employee Management</h3>
+
+    <ul class="dashboard-menu">
+        <li><a href="{{ url_for('onboard.list_requests') }}">📝 Onboarding Requests</a></li>
+        <li><a href="{{ url_for('perf.create_review') }}">⭐ Create Performance Review</a></li>
+        <li><a href="{{ url_for('perf.submit_feedback') }}">💬 Submit Feedback</a></li>
+        <li><a href="{{ url_for('analytics.dashboard') }}">📊 Workforce Analytics & Forecast</a></li>
+        <li><a href="{{ url_for('chatbot.chat_ui') }}">🤖 HR Chatbot Console</a></li>
+    </ul>
+
+    <hr>
+
+    <h3 class="section-title">HR Tools</h3>
+
+    <ul class="dashboard-menu">
+        <li><a href="{{ url_for('payroll.mark_attendance') }}">🕒 Mark Attendance</a></li>
+        <li><a href="{{ url_for('payroll.attendance_records', emp_id=user.id) }}">📆 View Attendance Records</a></li>
+        <li><a href="{{ url_for('payroll.view_payroll', employee_id=user.id) }}">💰 Payroll Processing</a></li>
+    </ul>
+
+    <hr>
+
+    <p><a href="{{ url_for('auth.logout') }}" class="logout">🚪 Logout</a></p>
+</div>
+
+<style>
+.page-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.title {
+    margin-bottom: 10px;
+    color: #024cab;
+    font-size: 26px;
+}
+
+.user-info {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.role-tag {
+    background: #024cab;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-left: 6px;
+}
+
+.section-title {
+    margin-top: 28px;
+    font-size: 20px;
+    color: #024cab;
+}
+
+.dashboard-menu {
+    list-style: none;
+    padding-left: 0;
+}
+
+.dashboard-menu li {
+    margin: 10px 0;
+}
+
+.dashboard-menu a {
+    text-decoration: none;
+    color: #0077cc;
+    font-size: 16px;
+}
+
+.dashboard-menu a:hover {
+    text-decoration: underline;
+}
+
+.logout {
+    color: #c03434;
+    font-weight: bold;
+}
+</style>
+
+{% endblock %}
